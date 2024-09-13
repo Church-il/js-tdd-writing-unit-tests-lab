@@ -1,34 +1,28 @@
 // src/__tests__/utils.test.js
-import { pointsForWord } from "../utils";
+import { isPalindrome } from "../utils";
 
-describe("pointsForWord", () => {
-  it("calculates the total points for a word (1 point per vowel, 2 per consonant)", () => {
-    const word = "test";
-    const points = pointsForWord(word);
-    expect(points).toBe(7);
+describe("isPalindrome", () => {
+  it("returns true for a valid palindrome", () => {
+    expect(isPalindrome("racecar")).toBe(true);
   });
 
-  it("handles uppercase and lowercase input", () => {
-    const word = "tEsT";
-    const points = pointsForWord(word);
-    expect(points).toBe(7);
+  it("returns false for a non-palindrome", () => {
+    expect(isPalindrome("car")).toBe(false);
   });
 
-  it("returns 0 for an empty string", () => {
-    const word = "";
-    const points = pointsForWord(word);
-    expect(points).toBe(0);
+  it("returns true for a palindrome with mixed case", () => {
+    expect(isPalindrome("RaCeCaR")).toBe(true);
   });
 
-  it("ignores non-alphabetic characters and calculates points only for letters", () => {
-    const word = "test!";
-    const points = pointsForWord(word);
-    expect(points).toBe(7);
+  it("returns false for an empty string", () => {
+    expect(isPalindrome("")).toBe(false);
   });
 
-  it("returns 0 for a non-string input", () => {
-    const word = 12345;
-    const points = pointsForWord(word);
-    expect(points).toBe(0);
+  it("throws an error if the input is not a string", () => {
+    expect(() => isPalindrome(12345)).toThrow("Input must be a string");
+  });
+
+  it("throws an error if the input has non-alphabetic characters", () => {
+    expect(() => isPalindrome("racecar123")).toThrow("Input must only contain alphabetic characters");
   });
 });
